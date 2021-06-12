@@ -1,0 +1,16 @@
+<h1><%= "#{@merchant.name}'s Discounts" %></h1><br>
+
+<table style="width: 30%", class='merchant-discount-index'>
+    <tr>
+    <th>Discount ID</th>
+    <th>Discount</th>
+    <th>Item Quantity</th>
+    </tr>
+    <% @discounts.each do |discount| %>
+    <tr>
+        <td><%= link_to "#{discount.id}", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :get %>
+        <td><%= number_to_percentage(discount.discount, precision: 0) %></td>
+        <td><%= discount.item_quantity %></td>
+    </tr>
+    <% end %>
+</table>
