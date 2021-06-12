@@ -3,7 +3,7 @@
     <h1><%= @merchant.name %></h1>
     <button><%= link_to 'My Items', "/merchants/#{@merchant.id}/items" %> </button>
     <button><%= link_to 'My Invoices', "/merchants/#{@merchant.id}/invoices" %> </button>
-    <button><%= link_to 'My Discounts', "/merchants/#{@merchant.id}/bulk_discounts" %> </button>
+    <button><%= link_to 'My Discounts',  merchant_bulk_discounts_path(@merchant) %> </button>
     </section><br>
 
     <div class="row">
