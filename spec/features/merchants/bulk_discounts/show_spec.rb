@@ -6,9 +6,9 @@ RSpec.describe 'show page' do
     it 'shows me the discount and item quantity for a particular discount' do
       visit '/merchants/1/bulk_discounts/1'
 
-      expect(find_field('Discount').value).to eq('5%')
-      expect(find_field('Item quantity').value).to eq('5')
-      expect(page).to_not have_content('Save changes')
+      expect(page).to have_content('5%')
+      expect(page).to have_content('5')
+      expect(page).to have_content('Edit Discount')
     end
   end
 end
