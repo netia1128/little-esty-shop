@@ -1,0 +1,17 @@
+<div class="container" style="width: 30%">
+  <div class="col-sm", style='padding-left: 25px'>
+    <h1><%= "Discount #{@discount.id} Details" %></h1>
+      <table style="width: 100%">
+        <tr>
+          <td>Discount</td>
+          <td><%= number_to_percentage(@discount.discount, precision: 0) %></td>
+        </tr>
+        <tr>
+          <td>Item Quantity</td>
+          <td><%= @discount.item_quantity %></td>
+        </tr>
+      </table><br>
+
+       <button><%= link_to 'Edit Discount', edit_merchant_bulk_discount_path(@merchant, @discount), method: :get %>
+  </div>
+</div>

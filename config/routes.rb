@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :merchants, module: :merchants do
     get '/dashboard', to: 'dashboard#show', as: 'merchant_dashboard'
     resources :items, except: :destroy
-    resources :bulk_discounts, only: [:index, :show]
+    resources :bulk_discounts
     resources :invoices
   end
 
