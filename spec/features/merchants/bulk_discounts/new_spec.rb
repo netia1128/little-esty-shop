@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'index page' do
+RSpec.describe 'new page' do
 
   describe 'page functionality' do
     it 'allows me to add a new discount for a merchant and redirects me to the merchant discount index page' do

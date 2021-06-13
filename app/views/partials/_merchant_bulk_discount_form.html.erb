@@ -1,6 +1,12 @@
 <%= bootstrap_form_with(model: [@merchant, @discount], local: true) do |f| %>
-  <%= f.number_field :discount %><br>
+  <% if show_page == false %>
+    <%= f.number_field :discount %><br>
+  <% else %>
+    <%= f.text_field :discount, value: number_to_percentage(@discount.discount, precision: 0) %><br>
+  <% end %>
   <%= f.number_field :item_quantity %><br>
   <%= f.hidden_field :merchant_id, value: @merchant.id%>
-  <%= submit_tag %>
+  <% if show_page == false %>
+    <%= submit_tag %>
+  <% end %>
 <% end %>
