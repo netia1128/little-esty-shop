@@ -50,6 +50,15 @@ RSpec.describe 'index page' do
 
       expect(current_path).to eq("/merchants/1/bulk_discounts/1")
     end
+    it 'contains a button that takes you to a page to create a new discount' do
+      visit '/merchants/1/bulk_discounts'
+
+      expect(page).to have_link('Add New Discount')
+
+      click_link 'Add New Discount'
+
+      expect(current_path).to eq('/merchants/1/bulk_discounts/new')
+    end
   end
 end
  

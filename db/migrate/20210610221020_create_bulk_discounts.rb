@@ -8,5 +8,6 @@ class CreateBulkDiscounts < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    execute("ALTER SEQUENCE bulk_discounts_id_seq START with 500 RESTART;")
   end
 end

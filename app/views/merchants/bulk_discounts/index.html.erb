@@ -1,5 +1,7 @@
 <h1><%= "#{@merchant.name}'s Discounts" %></h1><br>
 
+<button><%= link_to "Add New Discount",  new_merchant_bulk_discount_path, method: :get %></button><br><br>
+
 <table style="width: 30%", class='merchant-discount-index'>
     <tr>
     <th>Discount ID</th>

@@ -1,0 +1,6 @@
+<%= bootstrap_form_with(model: [@merchant, @discount], local: true) do |f| %>
+  <%= f.number_field :discount %><br>
+  <%= f.number_field :item_quantity %><br>
+  <%= f.hidden_field :merchant_id, value: @merchant.id%>
+  <%= submit_tag %>
+<% end %>
