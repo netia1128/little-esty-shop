@@ -7,12 +7,14 @@
     <th>Discount ID</th>
     <th>Discount</th>
     <th>Item Quantity</th>
+    <th>Remove Discount</th>
     </tr>
     <% @discounts.each do |discount| %>
     <tr>
         <td><%= link_to "#{discount.id}", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :get %>
         <td><%= number_to_percentage(discount.discount, precision: 0) %></td>
         <td><%= discount.item_quantity %></td>
+        <td><%= link_to 'Remove', merchant_bulk_discount_path(@merchant, discount), method: :delete %>
     </tr>
     <% end %>
 </table><br>
