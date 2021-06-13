@@ -24,8 +24,7 @@ RSpec.describe 'Merchants dashboard show page' do
 
     it 'links to merchant items index' do
       visit "/merchants/#{@merchant.id}/dashboard"
-
-      click_on 'All Items'
+      click_link 'My Items'
 
       expect(current_path).to eq("/merchants/#{@merchant.id}/items")
     end
@@ -33,9 +32,17 @@ RSpec.describe 'Merchants dashboard show page' do
     it 'links to merchant invoices index' do
       visit "/merchants/#{@merchant.id}/dashboard"
 
-      click_on 'All Invoices'
+      click_link 'My Invoices'
 
       expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
+    end
+
+    it 'links to merchant bulk discounts index' do
+      visit "/merchants/#{@merchant.id}/dashboard"
+
+      click_link 'My Discounts'
+
+      expect(current_path).to eq("/merchants/#{@merchant.id}/bulk_discounts")
     end
 
     it 'lists names of all items that are ready to ship' do
