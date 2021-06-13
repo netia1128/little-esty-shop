@@ -1,10 +1,12 @@
+require './app/constants'
+
 class GithubRepo
   attr_reader :data, :pull_requests, :team
 
   def initialize
-    @data = GithubService.connect_repo
-    @pull_requests = GithubService.pull_requests
-    @team = GithubService.all_contributors
+    @repo_name = APIService.connect(Constant::REPO_PATH)
+    @pull_requests = APIService.connect(Constant::PULLS_PATH)
+    @team = APIService.connect(Constant::CONTRIBUTOR_PATH)
   end
 
   def num_merged_prs
@@ -13,7 +15,7 @@ class GithubRepo
         pr[:merged_at]
       end
     else
-      26 # lol not elegant,but will work
+      26
     end
   end
 

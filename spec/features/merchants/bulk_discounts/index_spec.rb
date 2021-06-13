@@ -28,6 +28,19 @@ RSpec.describe 'index page' do
         expect(page).to have_content('15')
       end
     end
+    it 'shows the next three US public holiday names' do
+      mock_data = '[{"name":"Hannukah"},
+                   {"name":"Dragon Boat Festival"},
+                   {"name":"Kwanza"}]'
+      allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(double("response", status: 200, body: mock_data))
+      
+      visit "/merchants/1/bulk_discounts"
+
+      expect(page).to have_content('Upcoming Holidays')
+      expect(page).to have_content('Hannukah')
+      expect(page).to have_content('Dragon Boat Festival')
+      expect(page).to have_content('Kwanza')
+    end
   end
   describe 'page functionality' do
     it 'each discount id is a link to its show page' do
