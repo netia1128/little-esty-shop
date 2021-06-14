@@ -49,7 +49,35 @@ RSpec.describe 'Merchant invoice show page' do
       visit '/merchants/1/invoices/29'
       
       expect(page).to have_content('Undiscounted Total Revenue: $12,817.94')
-      expect(page).to have_content('Discounted Total Revenue: $12,333.17')
+      expect(page).to have_content('Discounted Total Revenue: $11,997.79')
+    end
+
+    it 'contains a link to applied discounts where applicable' do 
+      visit '/merchants/1/invoices/29'
+      
+      within ".invoice-items > tr:nth-child(2)" do
+        expect(page).to have_content('See Applied Discount')
+
+        click_on 'See Applied Discount'
+
+        expect(current_path).to eq('/merchants/1/bulk_discounts/1')
+      end
+
+      visit '/merchants/1/invoices/29'
+
+      within ".invoice-items > tr:nth-child(3)" do
+        expect(page).to have_content('None')
+      end
+
+      visit '/merchants/1/invoices/29'
+      
+      within ".invoice-items > tr:nth-child(5)" do
+        expect(page).to have_content('See Applied Discount')
+
+        click_on 'See Applied Discount'
+
+        expect(current_path).to eq('/merchants/1/bulk_discounts/2')
+      end
     end
   end
 end

@@ -38,7 +38,7 @@ RSpec.describe Invoice do
     describe '#discounted_revenue' do
       it 'calculates total discounted revenue' do
         invoice = Invoice.find(29)
-        expect(invoice.discounted_revenue).to eq(1233316.6)
+        expect(invoice.discounted_revenue).to eq(1199778.6)
       end
     end
   end

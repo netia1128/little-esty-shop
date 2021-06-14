@@ -24,6 +24,7 @@
         <th>Quantity</th>
         <th>Undiscounted Unit Price</th>
         <th>Discounted Unit Price</th>
+        <th>Discounted Applied</th>
         <th>Status</th>
       </tr>
         <% @invoice_items.each do |ii| %>
@@ -32,6 +33,13 @@
             <td><%= ii.quantity %></td>
             <td><%= number_to_currency(ii.unit_price.to_f / 100) %></td>
             <td><%= number_to_currency(ii.discounted_unit_price.to_f / 100) %></td>
+            <td>
+              <% if ii.applicable_discount.nil? %>
+                <%= "None" %>
+              <% else %>
+                <%= link_to "See Applied Discount", "/merchants/#{@merchant.id}/bulk_discounts/#{ii.applicable_discount.id}" %>
+              <% end %>
+            </td>
             <td class="status-update"><%= form_with model: @invoice_item, method: :patch, local: true do |form| %>
                 <%= form.hidden_field :ii_id, :value => ii.id %>
                 <%= form.select :status, options_for_select([:pending, :packaged, :shipped ], ii.status) %>
