@@ -4,10 +4,10 @@ class InvoiceItem < ApplicationRecord
   belongs_to :invoice
   belongs_to :item
   enum status: [:pending, :packaged, :shipped]
-  delegate :merchant, to: :item, allow_nil: true
-  delegate :bulk_discounts, to: :merchant, allow_nil: true
+  has_many :bulk_discounts, through: :merchant
 
   def applicable_discount
+    bulk_discounts = item.merchant.bulk_discounts
     all_discounts = bulk_discounts.where("bulk_discounts.item_quantity <= #{self.quantity}")
     all_discounts.max_by do |discount|
       discount.item_quantity

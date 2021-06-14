@@ -24,11 +24,11 @@
         <th>Quantity</th>
         <th>Undiscounted Unit Price</th>
         <th>Discounted Unit Price</th>
-        <th>Discounted Applied</th>
+        <th>Discount Applied</th>
         <th>Status</th>
       </tr>
         <% @invoice_items.each do |ii| %>
-          <tr>
+          <tr id="invoice-items-<%= ii.id %>" >
             <td><%= ii.item.name %></td>
             <td><%= ii.quantity %></td>
             <td><%= number_to_currency(ii.unit_price.to_f / 100) %></td>

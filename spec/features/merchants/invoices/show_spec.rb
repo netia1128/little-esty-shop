@@ -55,7 +55,7 @@ RSpec.describe 'Merchant invoice show page' do
     it 'contains a link to applied discounts where applicable' do 
       visit '/merchants/1/invoices/29'
       
-      within ".invoice-items > tr:nth-child(2)" do
+      within "#invoice-items-133" do
         expect(page).to have_content('See Applied Discount')
 
         click_on 'See Applied Discount'
@@ -65,13 +65,13 @@ RSpec.describe 'Merchant invoice show page' do
 
       visit '/merchants/1/invoices/29'
 
-      within ".invoice-items > tr:nth-child(3)" do
+      within "#invoice-items-134" do
         expect(page).to have_content('None')
       end
 
       visit '/merchants/1/invoices/29'
       
-      within ".invoice-items > tr:nth-child(5)" do
+      within "#invoice-items-135" do
         expect(page).to have_content('See Applied Discount')
 
         click_on 'See Applied Discount'
