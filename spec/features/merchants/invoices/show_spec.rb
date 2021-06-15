@@ -2,46 +2,35 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Merchant invoice show page' do
-  before :each do
-    # @item = Item.find(id)
-    # @merchant = Merchant.find(id)
-    @merchant = Merchant.create!(name: 'Sally Handmade')
-    @merchant_2 = Merchant.create!(name: 'Billy Mandmade')
-    @item =  @merchant.items.create!(name: 'Qui Essie', description: 'Lorem ipsim', unit_price: 1200)
-    @item_2 =  @merchant.items.create!(name: 'Essie', description: 'Lorem ipsim', unit_price: 1000)
-    @item_3 = @merchant_2.items.create!(name: 'Glowfish Markdown', description: 'Lorem ipsim', unit_price: 200)
-    @customer = Customer.create!(first_name: 'Joey', last_name: 'Ondricka') 
-    @invoice = Invoice.create!(customer_id: @customer.id, status: 'completed')
-    @invoice_2 = Invoice.create!(customer_id: @customer.id, status: 'completed')
-    InvoiceItem.create!(item_id: @item.id, invoice_id: @invoice.id, quantity: 3, unit_price: 1200, status: 1)
-    InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice.id, quantity: 10, unit_price: 1000, status: 1)
-    InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_2.id, quantity: 12, unit_price: 200, status: 1)
-  end
- 
+RSpec.describe 'Merchant invoice show page' do 
   describe 'display' do
     it 'shows invoice and its attributes' do
-      created_at = @invoice.created_at.strftime('%A, %B %d, %Y')
-      visit "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
+      invoice = Invoice.find(29)
+
+      visit '/merchants/1/invoices/29'
  
-      expect(page).to have_content("INVOICE # #{@invoice.id}")
-      expect(page).to_not have_content("INVOICE # #{@invoice_2.id}")
-      expect(page).to have_content("#{@invoice.status}")
-      expect(page).to have_content("#{created_at}")
+      expect(page).to have_content("INVOICE # 29")
+      expect(page).to have_content("cancelled")
+      expect(page).to have_content("Sunday, March 25, 2012")
+      expect(page).to have_content("Parker Daugherty")
     end
 
     it 'lists all items and item attributes on the invoice' do
-      visit "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
+      invoice = Invoice.find(29)
+      invoice_items = invoice.invoice_items
 
-      expect(page).to have_content("Qui Essie")
-      expect(page).to have_content("Essie")
-      expect(page).to_not have_content("Glowfish Markdown")
-      expect(page).to have_content("3")
-      expect(page).to have_content("$1,200.00")
+      visit '/merchants/1/invoices/29'
+
+      invoice_items.each do |invoice_item|
+        expect(page).to have_content(invoice_item.item.name)
+        expect(page).to have_content(invoice_item.quantity)
+        expect(page).to have_content((invoice_item.discounted_unit_price.to_f / 100).round(2))
+        expect(page).to have_content(invoice_item.status)
+      end
     end
 
     it 'can update items status through dropdown list' do
-      visit "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
+      visit '/merchants/1/invoices/29'
 
       expect(page).to have_button("Save")
       
@@ -53,13 +42,42 @@ RSpec.describe 'Merchant invoice show page' do
       end
 
       expect(page).to have_content("shipped")
-      expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice.id}")
+      expect(current_path).to eq('/merchants/1/invoices/29')
     end
 
-    it 'lists total revenue of all items on invoice' do 
-      visit "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
+    it 'lists both total discounted and total undiscounted revenue for the invoice' do 
+      visit '/merchants/1/invoices/29'
       
-      expect(page).to have_content("Expected Total Revenue: $136.00")
+      expect(page).to have_content('Undiscounted Total Revenue: $12,817.94')
+      expect(page).to have_content('Discounted Total Revenue: $11,997.79')
+    end
+
+    it 'contains a link to applied discounts where applicable' do 
+      visit '/merchants/1/invoices/29'
+      
+      within "#invoice-items-133" do
+        expect(page).to have_content('See Applied Discount')
+
+        click_on 'See Applied Discount'
+
+        expect(current_path).to eq('/merchants/1/bulk_discounts/1')
+      end
+
+      visit '/merchants/1/invoices/29'
+
+      within "#invoice-items-134" do
+        expect(page).to have_content('None')
+      end
+
+      visit '/merchants/1/invoices/29'
+      
+      within "#invoice-items-135" do
+        expect(page).to have_content('See Applied Discount')
+
+        click_on 'See Applied Discount'
+
+        expect(current_path).to eq('/merchants/1/bulk_discounts/2')
+      end
     end
   end
 end

@@ -11,25 +11,29 @@ RSpec.describe 'index page' do
       expect(page).to have_content('Item Quantity')
       expect(page).to have_content('Remove')
 
-      within ".merchant-discount-index > tr:nth-child(2)" do
+      within "#merchant-discount-index-1" do
         expect(page).to have_content('1')
         expect(page).to have_content('5%')
         expect(page).to have_content('5')
         expect(page).to have_content('Remove')
       end
 
-      within ".merchant-discount-index > tr:nth-child(3)" do
+      within "#merchant-discount-index-2" do
         expect(page).to have_content('2')
         expect(page).to have_content('10%')
         expect(page).to have_content('10')
         expect(page).to have_content('Remove')
       end
 
-      within ".merchant-discount-index > tr:nth-child(4)" do
+      within "#merchant-discount-index-3" do
         expect(page).to have_content('3')
         expect(page).to have_content('15%')
         expect(page).to have_content('15')
+        expect(page).to have_content('Remove')
       end
+
+      expect(page).to_not have_content('50%')
+      expect(page).to_not have_content('90')
     end
     it 'shows the next three US public holiday names' do
       mock_data = '[{"name":"Hannukah"},
@@ -64,21 +68,7 @@ RSpec.describe 'index page' do
     end
     it 'allows me to remove discounts' do
       visit '/merchants/1/bulk_discounts'
-
-      click_link 'Add New Discount'
-
-      fill_in "Discount",	with: "50" 
-      fill_in "Item quantity",	with: "90"
-      
-      click_on 'Save changes'
-
-      within ".merchant-discount-index > tr:nth-child(5)" do
-        click_on 'Remove'
       end
-
-      expect(page).to_not have_content('50%')
-      expect(page).to_not have_content('90')
-    end
   end
 end
  
