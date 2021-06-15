@@ -28,10 +28,10 @@
      <div class="d-flex justify-content-around bg-dark mt-4">
     <% if !Rails.env.test? %>
            <% repo = GithubRepo.new %>
-           <h6 class="p-3 text-light"><%= "link_to #{repo.repo_name} has #{repo.num_merged_prs} pull requests and counting".</h6>
-     <h6 class="p-3 text-light">Our Team:</h6>
-     <% repo.contributors.each do |username, commits| %>
-     <h7 class="p-3 text-light"> * <%= username %>: <%= commits %> commits </h7>
+           <h6 class="p-3 text-light"><%= "link_to #{repo.repo_name} has #{repo.num_merged_prs} pull requests and counting". %></h6>
+           <h6 class="p-3 text-light">Our Team:</h6>
+           <% repo.contributors.each do |username, commits| %>
+           <h7 class="p-3 text-light"> * <%= username %>: <%= commits %> commits </h7>
      <% rescue %>
        <h4 class="p-3 text-light">Github Statistics Unavailable</h4>
        <h4 class="p-3 text-light">Current Time is: <%= Time.now %></h4>
