@@ -1,7 +1,7 @@
 require './app/constants'
 
 class GithubRepo
-  attr_reader :data, :pull_requests, :team
+  attr_reader :repo_name, :pull_requests, :team
 
   def initialize
     @repo_name = APIService.connect(Constant::REPO_PATH)
