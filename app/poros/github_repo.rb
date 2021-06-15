@@ -4,7 +4,7 @@ class GithubRepo
   attr_reader :repo_name
 
   def initialize
-    @repo_name = APIService.connect(Constant::REPO_PATH)
+    @repo_name = APIService.connect(Constant::REPO_PATH)[:name]
     @pull_requests = APIService.connect(Constant::PULLS_PATH)
     @team = APIService.connect(Constant::CONTRIBUTOR_PATH)
   end
