@@ -28,7 +28,8 @@
      <div class="d-flex justify-content-around bg-dark mt-4">
     <% if !Rails.env.test? %>
       <% repo = GithubRepo.new %>
-      <%= "This repo is called #{repo.repo_name}, and it has #{repo.num_merged_prs} merged pull requests." %>
+         <h6 class="p-3 text-light"><%= "This repo is called #{repo.repo_name}, and it has #{repo.num_merged_prs} merged pull requests." %></h6>
+         <h6 class="p-3 text-light">Our Team:</h6>
          <% repo.contributors.each do |username, commits| %>
           <h7 class="p-3 text-light"> * <%= username %>: <%= commits %> commits </h7>
          <% end %>
