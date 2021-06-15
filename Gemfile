@@ -41,6 +41,7 @@ gem 'jquery-rails'
 
 gem 'faker'
 gem 'factory_bot'
+gem 'figaro'
 
 # API Connection and JSON parsing
 # require 'faraday'
