@@ -27,6 +27,9 @@ RSpec.describe Invoice do
         single_invoice = Invoice.last
         expect(single_invoice.statuses).to eq ['in progress', 'completed', 'cancelled']
       end
+      it 'returns the available statuses for an invoice' do
+        expect(Invoice.statuses).to eq(['in progress', 'completed', 'cancelled'])
+      end
     end
     describe '#undiscounted_revenue' do
       it 'calculates total undiscounted revenue' do

@@ -29,7 +29,11 @@ RSpec.describe 'index page' do
         expect(page).to have_content('3')
         expect(page).to have_content('15%')
         expect(page).to have_content('15')
+        expect(page).to have_content('Remove')
       end
+
+      expect(page).to_not have_content('50%')
+      expect(page).to_not have_content('90')
     end
     it 'shows the next three US public holiday names' do
       mock_data = '[{"name":"Hannukah"},
@@ -65,10 +69,6 @@ RSpec.describe 'index page' do
     it 'allows me to remove discounts' do
       visit '/merchants/1/bulk_discounts'
       end
-
-      expect(page).to_not have_content('50%')
-      expect(page).to_not have_content('90')
-    end
   end
 end
  
