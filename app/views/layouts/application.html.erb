@@ -30,7 +30,8 @@
       <% repo = GithubRepo.new %>
       <%= "This repo is called #{repo.repo_name}, and it has #{repo.num_merged_prs} merged pull requests." %>
          <% repo.contributors.each do |username, commits| %>
-     <h7 class="p-3 text-light"> * <%= username %>: <%= commits %> commits </h7>
+          <h7 class="p-3 text-light"> * <%= username %>: <%= commits %> commits </h7>
+         <% end %>
      <% else %>
        <h4 class="p-3 text-light">Github Statistics Unavailable</h4>
        <h4 class="p-3 text-light">Current Time is: <%= Time.now %></h4>
