@@ -80,7 +80,7 @@ test:
 # You can use this database configuration with:
 
   production:
-    url: <%= ENV['postgres://dxaihldecivheh:a8c58688656c312a8935f8e6c42a6c1d77897e067ab2ccb17419e27b306dc41e@ec2-3-215-57-87.compute-1.amazonaws.com:5432/d6v9vufslptltk'] %>
+    url: <%= ENV['DATABASE_URL'] %>
 
 # production:
 #   # <<: *default
